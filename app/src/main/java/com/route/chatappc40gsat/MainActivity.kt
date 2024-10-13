@@ -1,6 +1,7 @@
 package com.route.chatappc40gsat
 
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -11,8 +12,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.route.chatappc40gsat.destinations.Destination
+import com.route.chatappc40gsat.login.LoginScreen
+import com.route.chatappc40gsat.register.RegisterScreen
+import com.route.chatappc40gsat.splash.SplashScreen
 import com.route.chatappc40gsat.ui.theme.ChatAppC40GSatTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,8 +32,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             ChatAppC40GSatTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    val navController = rememberNavController()
+                    MainChatNavigation(
+                        navController = navController,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -31,17 +44,16 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ChatAppC40GSatTheme {
-        Greeting("Android")
+fun MainChatNavigation(navController: NavHostController, modifier: Modifier = Modifier) {
+    NavHost(navController = navController, startDestination = Destination.Splash) {
+        composable<Destination.Splash> {
+            SplashScreen(navController)
+        }
+        composable<Destination.Login> {
+            LoginScreen(navController)
+        }
+        composable<Destination.Register> {
+            RegisterScreen(navController = navController)
+        }
     }
 }

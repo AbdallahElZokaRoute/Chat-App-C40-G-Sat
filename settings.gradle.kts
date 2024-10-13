@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "ChatAppC40GSat"
 include(":app")
+include(":data")
+include(":domain")
