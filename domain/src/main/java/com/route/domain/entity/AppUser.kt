@@ -1,7 +1,11 @@
-package com.route.chatappc40gsat.model
+package com.route.domain.entity
 
 data class AppUser(
     val fullName: String? = null,
     val email: String? = null,
     val uid: String? = null
-)
+) {
+    companion object {
+        const val COLLECTION_NAME = "Users"
+    }
+}

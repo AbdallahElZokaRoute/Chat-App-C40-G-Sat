@@ -26,9 +26,12 @@ import androidx.navigation.compose.rememberNavController
 import com.route.chatappc40gsat.BaseComposableScreen
 import com.route.chatappc40gsat.R
 import com.route.chatappc40gsat.destinations.Destination
+import com.route.chatappc40gsat.register.RegisterNavigation
 import com.route.chatappc40gsat.utils.AuthChatToolbar
 import com.route.chatappc40gsat.utils.AuthTextField
 import com.route.chatappc40gsat.utils.ChatButton
+import com.route.chatappc40gsat.utils.ErrorDialog
+import com.route.chatappc40gsat.utils.LoadingDialog
 
 @Composable
 fun LoginScreen(
@@ -66,17 +69,17 @@ fun LoginScreen(
                 AuthTextField(
                     state = viewModel.emailAddressState,
                     label = stringResource(id = R.string.email),
-                    error = viewModel.emailAddressErrorState.value ?: "",
+                    error = viewModel.emailAddressErrorState.value,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 AuthTextField(
                     state = viewModel.passwordState,
                     label = stringResource(id = R.string.password),
-                    error = viewModel.passwordErrorState.value ?: ""
+                    error = viewModel.passwordErrorState.value
                 )
                 Spacer(modifier = Modifier.padding(8.dp))
                 ChatButton(text = stringResource(id = R.string.login)) {
-
+                    viewModel.login()
                 }
                 Text(
                     text = stringResource(R.string.register),
@@ -88,6 +91,21 @@ fun LoginScreen(
                         }
                 )
 
+            }
+        }
+        LoadingDialog(showLoading = viewModel.showLoadingState)
+        ErrorDialog(message = viewModel.messageState)
+        when (viewModel.navigation.value) {
+            LoginNavigation.Home -> {
+                navController.navigate(Destination.Home)
+                navController.clearBackStack(Destination.Login)
+                viewModel.navigation.value = LoginNavigation.Idle
+            }
+
+            LoginNavigation.Idle -> {}
+            LoginNavigation.Register -> {
+                navController.navigate(Destination.Register)
+                viewModel.navigation.value = LoginNavigation.Idle
             }
         }
     }

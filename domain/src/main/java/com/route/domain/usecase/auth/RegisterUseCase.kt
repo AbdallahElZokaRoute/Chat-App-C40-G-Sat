@@ -1,4 +1,4 @@
-package com.route.domain.usecase
+package com.route.domain.usecase.auth
 
 import com.route.domain.repository.AuthRepository
 import javax.inject.Inject

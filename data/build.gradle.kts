@@ -44,6 +44,7 @@ dependencies {
     implementation(project(":domain"))
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
+    implementation(libs.firebase.firestore)
     implementation(libs.google.firebase.analytics)
     implementation(libs.google.firebase.auth)
 

@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.route.chatappc40gsat.destinations.Destination
+import com.route.chatappc40gsat.home.HomeScreen
 import com.route.chatappc40gsat.login.LoginScreen
 import com.route.chatappc40gsat.register.RegisterScreen
 import com.route.chatappc40gsat.splash.SplashScreen
@@ -54,6 +55,9 @@ fun MainChatNavigation(navController: NavHostController, modifier: Modifier = Mo
         }
         composable<Destination.Register> {
             RegisterScreen(navController = navController)
+        }
+        composable<Destination.Home> {
+            HomeScreen(navController)
         }
     }
 }

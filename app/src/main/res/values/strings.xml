@@ -11,4 +11,6 @@
     <string name="or_create_my_account">or Create My Account</string>
     <string name="full_name">Full Name</string>
     <string name="register">Register</string>
+    <string name="ok">OK</string>
+    <string name="add_room_button">add Room Button</string>
 </resources>

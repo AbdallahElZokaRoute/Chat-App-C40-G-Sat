@@ -14,6 +14,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.route.chatappc40gsat.R
@@ -22,10 +23,14 @@ import kotlinx.coroutines.delay
 
 
 @Composable
-fun SplashScreen(navController: NavController, modifier: Modifier = Modifier) {
+fun SplashScreen(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    viewModel: SplashViewModel = hiltViewModel()
+) {
     LaunchedEffect(key1 = Unit) {
-        delay(2500)
-        navController.navigate(Destination.Login)
+        delay(2000)
+        viewModel.navigate()
     }
 
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxSize()) {
@@ -45,8 +50,16 @@ fun SplashScreen(navController: NavController, modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth(0.3F),
             contentScale = ContentScale.Crop
         )
+    }
+    when (viewModel.navigator.value) {
+        SplashDestination.Home -> {
+            navController.navigate(Destination.Home)
+        }
 
-
+        SplashDestination.Idle -> {}
+        SplashDestination.Login -> {
+            navController.navigate(Destination.Login)
+        }
     }
 }
 
